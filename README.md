@@ -1,6 +1,6 @@
 # robotlab_web_app
 
-# Author: Mr. Luan
+# Author: Mr. Luan. Ga. Con
 
 ## Project setup
 
