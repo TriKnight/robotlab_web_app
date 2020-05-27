@@ -1,6 +1,0 @@
-devel_space: /home/robotlab/web-app/robotlab_web_app/devel
-install: false
-install_space: /home/robotlab/web-app/robotlab_web_app/install
-profile: default
-source_space: /home/robotlab/web-app/robotlab_web_app/src
-workspace: /home/robotlab/web-app/robotlab_web_app
