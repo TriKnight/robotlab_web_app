@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NavBar from "../views/NavBar.vue";
 import TopBar from "../views/TopBar.vue";
-
 Vue.use(VueRouter);
 
 const routes = [

@@ -2,13 +2,14 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">NavBar</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/topbar"> Topbar</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/topbar">TopBar</router-link> |
 
     </div>
     <router-view />
   </div>
 </template>
+
 
 <style>
 #app {

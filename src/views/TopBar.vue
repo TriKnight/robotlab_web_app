@@ -1,18 +1,17 @@
 <template>
   <div class="topbar">
-    <h1>Top Bar</h1>
+     <ConnectWeb msg="Connecting your robot" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// @ is an alias to /src
-import Connect from "@/components/Connect.vue";
+import ConnectWeb from "@/components/ConnectWeb.vue";
 
 export default {
   name: "TopBar",
   components: {
-    Connect
+    ConnectWeb
   }
 };
 </script>

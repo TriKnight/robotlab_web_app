@@ -1,13 +1,13 @@
 <template>
   <div class="connect">
-      <h1> This is the Connection to the Robot </h1>
+    <h1> Connecting to your robot </h1>
   </div>
-  
+
 </template>
 
 <script>
 export default {
-  name: "Connect",
+  name: "ConnectWeb",
   props: {
     msg: String
   }
@@ -51,3 +51,21 @@ var twist = new ROSLIB.Message({
 });
 cmdVel.publish(twist);
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
