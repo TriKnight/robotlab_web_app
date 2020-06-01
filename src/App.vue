@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">NavBar</router-link> |
+      <router-link to="/view3d">View3D</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/topbar">TopBar</router-link> |
 
