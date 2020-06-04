@@ -69,7 +69,7 @@ export default {
     this.object = new ROS3D.OccupancyGridClient({
       ros : this.$parent.ros,
       
-      tfClient : this.$parent.tfClient,
+     // tfClient : this.$parent.tfClient,
       rootObject : this.$parent.viewer.scene,
       topic: this.topic,
       continuous: this.continuous,

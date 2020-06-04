@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import NavBar from "../views/NavBar.vue";
 import TopBar from "../views/TopBar.vue";
 import View3d from "../views/View3d.vue";
+import View3DMap from "../views/View3DMap.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,6 +22,11 @@ const routes = [
     path: "/view3d",
     name: "View3d",
     component: View3d
+  },
+  {
+    path: "/view3dmap",
+    name: "View3DMap",
+    component: View3DMap
   },
   {
     path: "/about",

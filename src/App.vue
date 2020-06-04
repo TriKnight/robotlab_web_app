@@ -5,7 +5,7 @@
       <router-link to="/view3d">View3D</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/topbar">TopBar</router-link> |
-
+      <router-link to="/view3dmap"> View3DMap </router-link>|
     </div>
     <router-view />
   </div>
