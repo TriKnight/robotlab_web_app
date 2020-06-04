@@ -119,9 +119,10 @@ export default {
       headDiameter : this.headDiameter,
       material : new Three.MeshBasicMaterial({color: this.color}),
     });
+      console.log("[DEBUG] Show the 3D Arrow ", this.object);
     this.object.name = this._uid;
     if (this.visible) this.show();
-    console.log("This is the State Visible-Ros3DArrow",this.visible);
+    
   },
   beforeDestroy() {
     this.hide();

@@ -104,6 +104,7 @@ export default {
           size: this.particleSize
         }
       });
+      console.log("[DEBUG] Show the laser scan", this.object);
       this.object.name = this._uid;
       if (!this.visible) this.hide();
     }

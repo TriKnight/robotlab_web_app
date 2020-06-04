@@ -36,7 +36,7 @@ export default {
     Ros3dLaserScan
   },
   created() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize);
   },
   destroyed() {
     window.removeEventListener('resize', this.handleResize)
@@ -52,6 +52,7 @@ export default {
     this.ros.on('connection', () => {
       this.connected = true;
     });
+    console.log ("[DEBUG] Check ROS connection", this.ros)
   },
   methods: {
     handleResize() {

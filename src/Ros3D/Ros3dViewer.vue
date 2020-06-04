@@ -95,6 +95,7 @@ export default {
         z: 50
       }
     });
+    console.log("This in the ROS Viewer",this.viewer )
 
     // Add TWEEN.update() to draw loop (for smooth animations)
     this.viewer.draw = () => {

@@ -6,7 +6,7 @@
 import * as ROS3D from 'ros3d'
 import * as ROSLIB from 'roslib'
 export default {
-  name: 'ros3d-occupancy-grid-client',
+  name: 'ros3d-grid-map',
   props: {
     visible: {
       type: Boolean,
@@ -82,7 +82,7 @@ export default {
     this.object.processMessage = (message) => {
       ROS3D.OccupancyGridClient.prototype.processMessage.call(this.object, message);
     };
-    if (!this.visible) this.hide();
+    if (this.visible) this.show();
     
   },
   beforeDestroy() {
