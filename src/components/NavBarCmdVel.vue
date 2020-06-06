@@ -9,7 +9,9 @@
     <div>
       <button v-on:click="sendCmd(-0.2, 0, 0, 0, 0, 0.0)">Backward</button>
     </div>
+    <div>{{ linear_speed_x }} and {{ linear_speed_y }}</div>
     <div id="zone_joystick">This is joystick</div>
+    <div ref="nippleRef" class="nipple"></div>
   </div>
 </template>
 
@@ -23,7 +25,10 @@ export default {
     connected: false,
     createCmdVel: String,
     twist: String,
-    static: null,
+    //  joystick: null,
+    linear_speed_x: Number,
+    linear_speed_y: Number,
+    angular_speed: Number,
   }),
   methods: {
     sendCmd(x_linear, y_linear, z_linear, x_angular, y_angular, z_angular) {
@@ -48,16 +53,6 @@ export default {
 
       this.createCmdVel.publish(this.twist);
     },
-    showJostick() {
-      this.static = NIPPLEJS.create({
-        zone: document.getElementById("zone_joystick"),
-        color: "blue",
-        mode: "static",
-        position: { left: "50%", top: "60%" },
-      });
-
-      console.log("[DEBUG] This is the joystick", this.static);
-    },
   },
   mounted() {
     this.ros = new ROSLIB.Ros({
@@ -68,7 +63,29 @@ export default {
     });
     console.log("This ROSLIB connection", this.ros);
     this.sendCmd(0.0, 0, 0, 0, 0, 0.0);
-    this.showJostick();
+    // This is the code for Joystick
+    let vm = this;
+    vm.nippleHandle = vm.$refs.nippleRef;
+    let options = {
+      zone: vm.nippleHandle,
+      color: "blue",
+      mode: "static",
+      position: { left: "50%", top: "60%" },
+    };
+    vm.manager = NIPPLEJS.create(options);
+    console.log("mounted nipple with options: ", options, vm.manager);
+    vm.manager.on("added", (event, data) => vm.$emit("added", (event, data)));
+    vm.manager.on("removed", (event, data) =>
+      vm.$emit("removed", (event, data))
+    );
+    vm.manager.on("start", (event, data) => vm.$emit("start", (event, data)));
+    vm.manager.on("end", (event, data) => vm.$emit("end", (event, data)));
+
+    vm.manager.on("move", function(event, data) {
+      vm.linear_speed_x = data.position.x;
+      vm.linear_speed_y = data.position.y;
+      console.log(vm.linear_speed_x, vm.linear_speed_y);
+    });
   },
 };
 </script>
