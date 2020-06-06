@@ -31,7 +31,8 @@
     "roslib": "^1.1.0",
     "three": "^0.89.0",
     "vue-ros3djs": "^1.1.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "nipplejs": "^0.8.5"
   },
   "eslintConfig": {
     "root": true,
