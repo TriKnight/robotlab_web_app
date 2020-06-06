@@ -9,8 +9,9 @@
     <div>
       <button v-on:click="sendCmd(-0.2, 0, 0, 0, 0, 0.0)">Backward</button>
     </div>
-    <div>{{ linear_speed_x }} and {{ linear_speed_y }}</div>
-    <div id="zone_joystick">This is joystick</div>
+    <div>
+      Linear Speed: {{ linear_speed }} and Angular Speed:{{ angular_speed }}
+    </div>
     <div ref="nippleRef" class="nipple"></div>
   </div>
 </template>
@@ -21,14 +22,16 @@ import NIPPLEJS from "nipplejs";
 export default {
   name: "NavBarCmdVel",
   data: () => ({
+    //ROS connection
     ros: null,
     connected: false,
+    // Ros topic cmd_vel
     createCmdVel: String,
     twist: String,
     //  joystick: null,
-    linear_speed_x: Number,
-    linear_speed_y: Number,
-    angular_speed: Number,
+    //ROS twist message data
+    linear_speed: String,
+    angular_speed: String,
   }),
   methods: {
     sendCmd(x_linear, y_linear, z_linear, x_angular, y_angular, z_angular) {
@@ -55,6 +58,7 @@ export default {
     },
   },
   mounted() {
+    // This is ros connection
     this.ros = new ROSLIB.Ros({
       url: "ws://localhost:9090",
     });
@@ -63,12 +67,13 @@ export default {
     });
     console.log("This ROSLIB connection", this.ros);
     this.sendCmd(0.0, 0, 0, 0, 0, 0.0);
+
     // This is the code for Joystick
     let vm = this;
     vm.nippleHandle = vm.$refs.nippleRef;
     let options = {
       zone: vm.nippleHandle,
-      color: "blue",
+      color: "red",
       mode: "static",
       position: { left: "50%", top: "60%" },
     };
@@ -80,11 +85,35 @@ export default {
     );
     vm.manager.on("start", (event, data) => vm.$emit("start", (event, data)));
     vm.manager.on("end", (event, data) => vm.$emit("end", (event, data)));
+    //Add timmer
+    let timer;
+    vm.linear_speed = 0;
+    vm.angular_speed = 0;
+    vm.manager.on("start", function() {
+      timer = setInterval(function() {
+        vm.sendCmd(vm.linear_speed, 0, 0, 0, 0, vm.angular_speed);
+      }, 25);
+    });
 
     vm.manager.on("move", function(event, data) {
-      vm.linear_speed_x = data.position.x;
-      vm.linear_speed_y = data.position.y;
-      console.log(vm.linear_speed_x, vm.linear_speed_y);
+      let max_linear = 5.0; // m/s
+      let max_angular = 2.0; // rad/s
+      let max_distance = 75.0; // pixels;
+      vm.linear_speed =
+        (Math.sin(data.angle.radian) * max_linear * data.distance) /
+        max_distance;
+      vm.angular_speed =
+        (-Math.cos(data.angle.radian) * max_angular * data.distance) /
+        max_distance;
+      console.log(vm.linear_speed, vm.angular_speed);
+    });
+    vm.manager.on("end", function() {
+      if (timer) {
+        clearInterval(timer);
+        vm.linear_speed = 0;
+        vm.angular_speed = 0;
+      }
+      vm.sendCmd(vm.linear_speed, 0, 0, 0, 0, vm.angular_speed);
     });
   },
 };
