@@ -79,12 +79,6 @@ export default {
     };
     vm.manager = NIPPLEJS.create(options);
     console.log("mounted nipple with options: ", options, vm.manager);
-    vm.manager.on("added", (event, data) => vm.$emit("added", (event, data)));
-    vm.manager.on("removed", (event, data) =>
-      vm.$emit("removed", (event, data))
-    );
-    vm.manager.on("start", (event, data) => vm.$emit("start", (event, data)));
-    vm.manager.on("end", (event, data) => vm.$emit("end", (event, data)));
     //Add timmer
     let timer;
     vm.linear_speed = 0;
