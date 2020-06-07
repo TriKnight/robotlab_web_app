@@ -70,7 +70,7 @@ export default {
 
     // This is the code for Joystick
     let vm = this;
-    vm.nippleHandle = vm.$refs.nippleRef;
+    vm.nippleHandle = vm.$refs.nippleRef; // assign a reference ID to the child component using the ref attribute
     let options = {
       zone: vm.nippleHandle,
       color: "red",
@@ -89,12 +89,13 @@ export default {
     let timer;
     vm.linear_speed = 0;
     vm.angular_speed = 0;
+    //Start working with the joystick
     vm.manager.on("start", function() {
       timer = setInterval(function() {
         vm.sendCmd(vm.linear_speed, 0, 0, 0, 0, vm.angular_speed);
       }, 25);
     });
-
+    //Move the joystick
     vm.manager.on("move", function(event, data) {
       let max_linear = 5.0; // m/s
       let max_angular = 2.0; // rad/s
@@ -105,8 +106,8 @@ export default {
       vm.angular_speed =
         (-Math.cos(data.angle.radian) * max_angular * data.distance) /
         max_distance;
-      console.log(vm.linear_speed, vm.angular_speed);
     });
+    // Release the joystick
     vm.manager.on("end", function() {
       if (timer) {
         clearInterval(timer);
